@@ -28,7 +28,10 @@ def fetch(url, page_type, output):
 	save_json(data, output)
 	final = time() - start
 	#Should probaly be expressed in regular milliseconds
-	print("Fetched %s in %s" %(data[3], final))
+	if len(data) > 4:
+		print("Fetched %s in %s" %(data[3], final))
+	else:
+		print("Fetched Invalid in %s" %(final))
 	
 def simple_fetch(url, page_type):
 	reqs = requests.get(url)
