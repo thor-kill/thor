@@ -29,15 +29,17 @@ from os.path import isdir
 from os.path import exists
 
 def main(args):
-	if args[1] == "get":
-		if len(args) < 6:
-			print("Inavlid Statent")
-			return False
-		ocean = args[2]
-		page = args[3]
-		ids = args[4:-1]
+	if args[1] in ("meri", "ceru", "emer", "obsi"):
+		ocean = args[1]
+		page = args[2]
 		output = argv[-1]
-		if ocean not in ("meri", "emer", "ceru"):
+		if page == "isld":
+			fetch((build((ocean, page), [""]))[0], page, output)
+			return True
+
+		ids = args[3:-1]
+
+		if ocean not in ("meri", "ceru", "emer", "obsi"):
 			print("Invalid Ocean")
 			return False
 		elif page not in ("isld", "flag", "crew", "pirt", "trph"):
@@ -50,6 +52,9 @@ def main(args):
 			fetch_all((ocean, page), ids, output)
 		else:
 			fetch(build((ocean, page), ids)[0], page, output)
+
+# D E P R E D A T E D
+"""
 	if args[1] == "read":
 		if len(args) != 3:
 			print("Invalid Command")
@@ -69,6 +74,7 @@ def main(args):
 			return False
 		else:
 			read(simple_fetch(build((ocean, page), ids)[0], page))
+"""
 
 if __name__	== "__main__":
 	main(argv)
