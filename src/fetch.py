@@ -24,10 +24,11 @@ def build(page_type, urls):
 def fetch(url, page_type, output):
 	#Fetches a yoweb page and times the request
 	start = time()
-	save_json(simple_fetch(url, page_type), output)
+	data = simple_fetch(url, page_type)
+	save_json(data, output)
 	final = time() - start
 	#Should probaly be expressed in regular milliseconds
-	print("Fetched %s in %s" %(url, final))
+	print("Fetched %s in %s" %(data[3], final))
 	
 def simple_fetch(url, page_type):
 	reqs = requests.get(url)
