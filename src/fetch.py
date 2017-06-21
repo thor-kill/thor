@@ -28,7 +28,7 @@ def fetch(url, page_type, output):
 	save_json(data, output)
 	final = time() - start
 	#Should probaly be expressed in regular milliseconds
-	if len(data) > 4:
+	if type(data) == tuple:
 		print("Fetched %s in %s" %(data[3], final))
 	else:
 		print("Fetched Invalid in %s" %(final))
