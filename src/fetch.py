@@ -28,15 +28,15 @@ from .trph_parse import trph_parse
 
 def build(page_type, urls):
 	#Builds a yoweb URL
-	#Expects a tuple (ocean, type) and the island/flag/crew id or a pirate name
-	types = {"isld":"island/info.wm?islandid=", "flag":"flag/info.wm?flagid=", 
+	#Expects a tuple (ocean, type) and the island index, flag/crew id or a pirate name
+	types = {"isld":"island/info.wm?showAll=true", "flag":"flag/info.wm?flagid=", 
 		"crew":"crew/info.wm?crewid=", "pirt":"pirate.wm?target=", "trph":"trophy/?pirate="}
 	ocean = {"meri":"http://meridian", "emer":"http://emerald", "ceru":"http://cerulean"}
 	page = ".puzzlepirates.com/yoweb/"
 	for x in range(len(urls)):
 		urls[x] = ocean[page_type[0]] + page + types[page_type[1]] + urls[x]
 		if page_type[1] == "trph":
-			urls[x] = urls[x] + "&expandAll=1" 
+			urls[x] = urls[x] + "&expandAll=1"
 	return urls
 
 def fetch(url, page_type, output):
