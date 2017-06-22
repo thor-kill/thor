@@ -14,12 +14,17 @@ def main(args):
 	if args[1] in ("meri", "ceru", "emer", "obsi"):
 		ocean = args[1]
 		page = args[2]
+		ids = args[3:-1]
 		output = argv[-1]
 		if page == "isld":
 			fetch((build((ocean, page), [""]))[0], page, output)
 			return True
-
-		ids = args[3:-1]
+		elif page == "fame":
+			if len(ids) > 1:
+				fetch_all((ocean, page), ids, output)
+			else:
+				fetch(build((ocean, page), ids)[0], page, output)
+			return True
 
 		if ocean not in ("meri", "ceru", "emer", "obsi"):
 			print("Invalid Ocean")

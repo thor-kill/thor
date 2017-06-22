@@ -7,15 +7,27 @@ from .crew_parse import crew_parse
 from .flag_parse import flag_parse
 from .isld_parse import isld_parse
 from .trph_parse import trph_parse
+from .fame_parse import fame_parse
 
 def build(page_type, urls):
 	#Builds a yoweb URL
 	#Expects a tuple (ocean, type) and the island index, flag/crew id or a pirate name
 	types = {"isld":"island/info.wm?showAll=true", "flag":"flag/info.wm?flagid=", 
-		"crew":"crew/info.wm?crewid=", "pirt":"pirate.wm?target=", "trph":"trophy/?pirate="}
+		"crew":"crew/info.wm?crewid=", "pirt":"pirate.wm?target=", "trph":"trophy/?pirate=",}
+	fame_page = {"ffam":"top_fame_112.html", "cfam":"top_fame_97.html", "pcon":"top_repute_PIRATE_CONQUEROR.html",
+		"pexp":"top_repute_PIRATE_EXPLORER.html", "ppat":"top_repute_PIRATE_PATRON.html",
+		"pmag":"top_repute_PIRATE_MAGNATE.html","ccon":"top_repute_CREW_CONQUEROR.html",
+		"cexp":"top_repute_CREW_EXPLORER.html", "cpat":"top_repute_CREW_PATRON.html",
+		"cmag":"top_repute_CREW_MAGNATE.html", "fcon":"top_repute_FLAG_CONQUEROR.html",
+		"fexp":"top_repute_FLAG_EXPLORER.html", "fpat":"top_repute_FLAG_PATRON.html",
+		"fmag":"top_repute_FLAG_MAGNATE.html"}
 	ocean = {"meri":"http://meridian", "emer":"http://emerald", "ceru":"http://cerulean"}
 	page = ".puzzlepirates.com/yoweb/"
+	ratings = ".puzzlepirates.com/ratings/"
 	for x in range(len(urls)):
+		if page_type[1] == "fame":
+			urls[x] = ocean[page_type[0]] + ratings + fame_page[urls[x]]
+			continue
 		urls[x] = ocean[page_type[0]] + page + types[page_type[1]] + urls[x]
 		if page_type[1] == "trph":
 			urls[x] = urls[x] + "&expandAll=1"
@@ -36,7 +48,8 @@ def fetch(url, page_type, output):
 def simple_fetch(url, page_type):
 	reqs = requests.get(url)
 	html = reqs.text
-	func = {"pirt" : pirt_parse, "crew" : crew_parse, "flag" : flag_parse, "isld" : isld_parse, "trph" : trph_parse}
+	func = {"pirt":pirt_parse, "crew":crew_parse, "flag":flag_parse, "isld":isld_parse, "trph":trph_parse,
+		"fame":fame_parse}
 	return func[page_type](html, url)
 
 def fetch_all(page_type, ids, output):
