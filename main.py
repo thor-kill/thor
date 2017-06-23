@@ -29,7 +29,7 @@ def main(args):
 		if ocean not in ("meri", "ceru", "emer", "obsi"):
 			print("Invalid Ocean")
 			return False
-		elif page not in ("isld", "flag", "crew", "pirt", "trph"):
+		elif page not in ("isld", "flag", "crew", "pirt", "trph", "dorm"):
 			print("Invalid Page")
 			return False
 		elif isdir(output) == False:
