@@ -54,14 +54,18 @@ def batt_parse(page, url):
 			t.append([td[6].get_text().split()[0]])
 		else:
 			t.append([td[6].get_text().split()[0],td[6].get_text().split()[2]])
+		battle_stats.append(t)
 	
 	try:
 		pvp_table = soup.find_all("table")[1].find_all('tr')
+		pvp_table.pop(0)
+		if len(pvp_table) == 0:
+			final = (timest, page_type, tuple(loc), crew_name, tuple(battle_stats), tuple(pvp_stats))
+			return final
 	except:
 		final = (timest, page_type, tuple(loc), crew_name, tuple(battle_stats), tuple(pvp_stats))
 		return final
-	pvp_table.pop(0)
-	#pvp_table = [i for i in pvp_table if i.get_text(strip=True) != " "]
+	
 	for i in pvp_table[0].find_all('i'):
 		t = i.get_text().split()
 		months = ['January','February','March','April','May','June','July',
@@ -79,7 +83,7 @@ def batt_parse(page, url):
 		pvp_table.pop(pvp_table.index(None))
 	
 	for i in range(0, len(pvp_table), 5):
-		log_loc = pvp_stats[int(i/5)]
+		log_loc = []
 		enemy_crew = ["", ""]
 		friendly_ship = ["", ""]
 		enemy_ship = ["", ""]
@@ -124,6 +128,7 @@ def batt_parse(page, url):
 		else:
 			log_loc.append("{} PoE:{} Goods".format(pvp_table[i+4].get_text().split()[-4], 
 				pvp_table[i+4].get_text().split()[-7].replace(',', '')))
+		pvp_stats[int(i/5)] = log_loc
 
 	final = (timest, page_type, tuple(loc), crew_name, tuple(battle_stats), tuple(pvp_stats))
 	return final
