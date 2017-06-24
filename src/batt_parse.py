@@ -1,5 +1,5 @@
 #The following fuction will take the following parameters:
-#A HTML page with the fame info
+#A HTML page with the battle log info
 
 #And it will produce:
 #A timestamp of when the fuction was executed in Universal Time in a form of struct_time
@@ -19,7 +19,7 @@ from datetime import datetime
 def batt_parse(page, url):
 	
 	timest = datetime.utcnow().utctimetuple()
-	page_type = "fame"
+	page_type = "batt"
 	loc = ["",""]
 	crew_name = ""
 	battle_stats = []

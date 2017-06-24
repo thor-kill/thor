@@ -15,7 +15,7 @@ from datetime import datetime
 def dorm_parse(page, url):
 	
 	timest = datetime.utcnow().utctimetuple()
-	page_type = "crew"
+	page_type = "dorm"
 	loc = ["", ""]
 	crew_name = ""
 	dormant = [[], [], [], [], [], []]

@@ -1,5 +1,5 @@
 #The following fuction will take the following parameters:
-#A HTML page with the crew info
+#A HTML page with the pirate info
 
 #And it will produce:
 #A timestamp of when the fuction was executed in Universal Time in a form of struct_time

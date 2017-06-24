@@ -1,5 +1,5 @@
 #The following fuction will take the following parameters:
-#A HTML page with the dormant info
+#A HTML page with the puzzle rankings info
 
 #And it will produce:
 #A timestamp of when the fuction was executed in Universal Time in a form of struct_time
@@ -16,7 +16,7 @@ from datetime import datetime
 def stat_parse(page, url):
 	
 	timest = datetime.utcnow().utctimetuple()
-	page_type = "fame"
+	page_type = "stat"
 	loc = ""
 	stat_name = ""
 	stand_table = []
