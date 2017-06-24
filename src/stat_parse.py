@@ -1,5 +1,5 @@
 #The following fuction will take the following parameters:
-#A HTML page with the fame info
+#A HTML page with the dormant info
 
 #And it will produce:
 #A timestamp of when the fuction was executed in Universal Time in a form of struct_time
@@ -43,5 +43,4 @@ def stat_parse(page, url):
 	tab_date = soup.find_all("font")[-1].get_text()
 
 	final = (timest, page_type, loc, stat_name, stand_table, exp_table, tab_date)
-	print(final)
 	return final

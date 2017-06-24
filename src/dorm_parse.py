@@ -1,5 +1,5 @@
 #The following fuction will take the following parameters:
-#A HTML page with the fame info
+#A HTML page with the dormant info
 
 #And it will produce:
 #A timestamp of when the fuction was executed in Universal Time in a form of struct_time
@@ -54,5 +54,4 @@ def dorm_parse(page, url):
 			dormant[5].append(members[i+1])
 
 	final = (timest, page_type, tuple(loc), crew_name, tuple(dormant))
-	print(final)
 	return final

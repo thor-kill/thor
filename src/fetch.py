@@ -10,13 +10,14 @@ from .trph_parse import trph_parse
 from .fame_parse import fame_parse
 from .dorm_parse import dorm_parse
 from .stat_parse import stat_parse
+from .batt_parse import batt_parse
 
 def build(page_type, urls):
 	#Builds a yoweb URL
 	#Expects a tuple (ocean, type) and the island index, flag/crew id or a pirate name
 	types = {"isld":"island/info.wm?showAll=true", "flag":"flag/info.wm?flagid=", 
 		"crew":"crew/info.wm?crewid=", "pirt":"pirate.wm?target=", "trph":"trophy/?pirate=",
-		"dorm":"crew/dormant_members.wm?crewid="}
+		"dorm":"crew/dormant_members.wm?crewid=", "batt":"crew/battleinfo.wm?crewid="}
 	fame_page = {"ffam":"top_fame_112.html", "cfam":"top_fame_97.html", "pcon":"top_repute_PIRATE_CONQUEROR.html",
 		"pexp":"top_repute_PIRATE_EXPLORER.html", "ppat":"top_repute_PIRATE_PATRON.html",
 		"pmag":"top_repute_PIRATE_MAGNATE.html","ccon":"top_repute_CREW_CONQUEROR.html",
@@ -24,7 +25,7 @@ def build(page_type, urls):
 		"cmag":"top_repute_CREW_MAGNATE.html", "fcon":"top_repute_FLAG_CONQUEROR.html",
 		"fexp":"top_repute_FLAG_EXPLORER.html", "fpat":"top_repute_FLAG_PATRON.html",
 		"fmag":"top_repute_FLAG_MAGNATE.html", "stat":"top_{}_0.html"}
-	ocean = {"meri":"http://meridian", "emer":"http://emerald", "ceru":"http://cerulean"}
+	ocean = {"meri":"http://meridian", "emer":"http://emerald", "ceru":"http://cerulean", "obsi":"http://obsidian"}
 	page = ".puzzlepirates.com/yoweb/"
 	ratings = ".puzzlepirates.com/ratings/"
 	for x in range(len(urls)):
@@ -55,7 +56,7 @@ def simple_fetch(url, page_type):
 	reqs = requests.get(url)
 	html = reqs.text
 	func = {"pirt":pirt_parse, "crew":crew_parse, "flag":flag_parse, "isld":isld_parse, "trph":trph_parse,
-		"fame":fame_parse, "dorm":dorm_parse, "stat":stat_parse}
+		"fame":fame_parse, "dorm":dorm_parse, "stat":stat_parse, "batt":batt_parse}
 	return func[page_type](html, url)
 
 def fetch_all(page_type, ids, output):
