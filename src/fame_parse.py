@@ -52,8 +52,5 @@ def fame_parse(page, url):
 	
 	tab_date = soup.find_all("font")[-1].get_text()
 
-	for i in table:
-		print(i)
-
 	final = (timest, page_type, loc, fame_name, table, tab_date)
 	return final

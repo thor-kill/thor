@@ -9,6 +9,7 @@ from .isld_parse import isld_parse
 from .trph_parse import trph_parse
 from .fame_parse import fame_parse
 from .dorm_parse import dorm_parse
+from .stat_parse import stat_parse
 
 def build(page_type, urls):
 	#Builds a yoweb URL
@@ -22,11 +23,14 @@ def build(page_type, urls):
 		"cexp":"top_repute_CREW_EXPLORER.html", "cpat":"top_repute_CREW_PATRON.html",
 		"cmag":"top_repute_CREW_MAGNATE.html", "fcon":"top_repute_FLAG_CONQUEROR.html",
 		"fexp":"top_repute_FLAG_EXPLORER.html", "fpat":"top_repute_FLAG_PATRON.html",
-		"fmag":"top_repute_FLAG_MAGNATE.html"}
+		"fmag":"top_repute_FLAG_MAGNATE.html", "stat":"top_{}_0.html"}
 	ocean = {"meri":"http://meridian", "emer":"http://emerald", "ceru":"http://cerulean"}
 	page = ".puzzlepirates.com/yoweb/"
 	ratings = ".puzzlepirates.com/ratings/"
 	for x in range(len(urls)):
+		if page_type[1] == "stat":
+			urls[x] = ocean[page_type[0]] + ratings + fame_page["stat"].format(urls[x])
+			continue
 		if page_type[1] == "fame":
 			urls[x] = ocean[page_type[0]] + ratings + fame_page[urls[x]]
 			continue
@@ -51,7 +55,7 @@ def simple_fetch(url, page_type):
 	reqs = requests.get(url)
 	html = reqs.text
 	func = {"pirt":pirt_parse, "crew":crew_parse, "flag":flag_parse, "isld":isld_parse, "trph":trph_parse,
-		"fame":fame_parse, "dorm":dorm_parse}
+		"fame":fame_parse, "dorm":dorm_parse, "stat":stat_parse}
 	return func[page_type](html, url)
 
 def fetch_all(page_type, ids, output):
