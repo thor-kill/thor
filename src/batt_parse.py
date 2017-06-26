@@ -2,7 +2,7 @@
 #A HTML page with the battle log info
 
 #And it will produce:
-#A timestamp of when the fuction was executed in Universal Time in a form of struct_time
+#A timestamp of when the fuction was executed in Local Time in a form of struct_time
 #The type of data produced by the function in a form of a string "dorm"
 #The yoweb location of the page in a form of a tuple (ocean, id)
 #Crew name in a form of a string
@@ -14,11 +14,11 @@
 #	vitory type if only of the following: "disengaged", "sunk", "{} PoE:{} Goods"
 
 from bs4 import BeautifulSoup
-from datetime import datetime
+import time
 
 def batt_parse(page, url):
 	
-	timest = datetime.utcnow().utctimetuple()
+	timest = time.localtime()
 	page_type = "batt"
 	loc = ["",""]
 	crew_name = ""
@@ -71,11 +71,11 @@ def batt_parse(page, url):
 		t = i.get_text().split()
 		months = ['January','February','March','April','May','June','July',
 			'August','September','October','November','December']
-		time = [t[1].split(':')[0], t[1].split(':')[1][:2], t[1].split(':')[1][2:]]
-		if time[2] == "PM": time[0] = int(time[0]) + 12
-		if time[2] == "AM" and time[0] == "12": time[0] = int(time[0]) - 12
-		time[0] = str(time[0])
-		pvp_stats.append([[t[-1][:-1], months.index(t[-2])+1, t[-3], time[0], time[1]]])
+		date = [t[1].split(':')[0], t[1].split(':')[1][:2], t[1].split(':')[1][2:]]
+		if date[2] == "PM": date[0] = int(date[0]) + 12
+		if date[2] == "AM" and date[0] == "12": date[0] = int(date[0]) - 12
+		date[0] = str(date[0])
+		pvp_stats.append([[t[-1][:-1], months.index(t[-2])+1, t[-3], date[0], date[1]]])
 	
 	pvp_table = pvp_table[0].find_all('td')
 	for i in range(5, len(pvp_table), 6):

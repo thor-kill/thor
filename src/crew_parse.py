@@ -2,7 +2,7 @@
 #A HTML page with the crew info
 
 #And it will produce:
-#A timestamp of when the fuction was executed in Universal Time in a form of struct_time
+#A timestamp of when the fuction was executed in Local Time in a form of struct_time
 #The type of data produced by the function in a form of a string "crew"
 #The yoweb location of the page in a form of a tuple (ocean, id)
 #Crew name in a form of a string
@@ -25,13 +25,13 @@
 #Battle stats
 
 from bs4 import BeautifulSoup
-from datetime import datetime
+import time
 
 def crew_parse(page, url):
 	dormant = False
 	battle = False
 	
-	timest = datetime.utcnow().utctimetuple()
+	timest = time.localtime()
 	page_type = "crew"
 	loc = ["", ""]
 	crew_name = ""

@@ -2,7 +2,7 @@
 #A HTML page with the island info
 
 #And it will produce:
-#A timestamp of when the fuction was executed in Universal Time in a form of struct_time
+#A timestamp of when the fuction was executed in Local Time in a form of struct_time
 #The type of data produced by the function in a form of a string "flag"
 #The yoweb location of the page in a form of a tuple (ocean, id)
 #Flag name in a form of a string
@@ -21,10 +21,10 @@
 #If at any point the fuction dicovers that a valid flag page was not provided it will return None
 
 from bs4 import BeautifulSoup
-from datetime import datetime
+import time
 
 def flag_parse(page, url):
-	timest = datetime.utcnow().utctimetuple()
+	timest = time.localtime()
 	page_type = "flag"
 	loc = ["", ""]
 	flag_name = ""

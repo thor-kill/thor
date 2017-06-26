@@ -2,7 +2,7 @@
 #A HTML page with the pirate info
 
 #And it will produce:
-#A timestamp of when the fuction was executed in Universal Time in a form of struct_time
+#A timestamp of when the fuction was executed in Local Time in a form of struct_time
 #The type of data produced by the function in a form of a string "pirt"
 #The ocean the pirate is located in a form of a string
 #Pirate name in a form of a string
@@ -28,12 +28,12 @@
 #Trophies
 
 from bs4 import BeautifulSoup
-from datetime import datetime
+import time
 
 def pirt_parse(page, url):
 	trophies = False
 	
-	timest = datetime.utcnow().utctimetuple()
+	timest = time.localtime()
 	page_type = "pirt"
 	loc = ""
 	pirt_name = ""

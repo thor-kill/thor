@@ -2,16 +2,16 @@
 #A HTML page with the island info
 
 #And it will produce:
-#A timestamp of when the fuction was executed in Universal Time in a form of struct_time
+#A timestamp of when the fuction was executed in Local Time in a form of struct_time
 #The type of data produced by the function in a form of a string "isld"
 #The yoweb location of the page in a form of a string "ocean"
 #A tuple of tuples in a form of (("isld", pop, "arch", "gov", tax, ("flagid", "ruler"), ("exp",..)),..())
 
 from bs4 import BeautifulSoup
-from datetime import datetime
+import time
 
 def isld_parse(page, url):
-	timest = datetime.utcnow().utctimetuple()
+	timest = time.localtime()
 	page_type = "isld"
 	loc = ""
 	isld = []

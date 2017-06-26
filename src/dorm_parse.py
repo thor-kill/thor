@@ -2,7 +2,7 @@
 #A HTML page with the dormant info
 
 #And it will produce:
-#A timestamp of when the fuction was executed in Universal Time in a form of struct_time
+#A timestamp of when the fuction was executed in Local Time in a form of struct_time
 #The type of data produced by the function in a form of a string "dorm"
 #The yoweb location of the page in a form of a tuple (ocean, id)
 #Crew name in a form of a string
@@ -10,11 +10,11 @@
 #	((capt*), (sen_off*), (fle_off*), (off*), (pir*), (cab*))
 
 from bs4 import BeautifulSoup
-from datetime import datetime
+import time
 
 def dorm_parse(page, url):
 	
-	timest = datetime.utcnow().utctimetuple()
+	timest = time.localtime()
 	page_type = "dorm"
 	loc = ["", ""]
 	crew_name = ""

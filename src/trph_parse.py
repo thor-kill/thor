@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
-from datetime import datetime
+import time
 
 def trph_parse(page, url):
 
-	timest = datetime.utcnow().utctimetuple()
+	timest = time.localtime()
 	page_type = "trph"
 	loc = ""
 	pirt_name = ""
