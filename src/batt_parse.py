@@ -42,6 +42,7 @@ def batt_parse(page, url):
 	
 	battle_table = soup.find_all("table")[0].find_all('tr')[2:]
 	for i in battle_table:
+		if soup.tr.get_text() != "Overall battle stats": break #breaks if there are only pvp stats
 		t = []
 		td = i.find_all('td')
 		t.append(td[0].get_text().split('-'))
