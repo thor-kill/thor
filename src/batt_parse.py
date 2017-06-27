@@ -127,8 +127,8 @@ def batt_parse(page, url):
 		elif pvp_table[i+4].get_text().split()[-1] == "POE":
 			log_loc.append("{} PoE:0 Goods".format(pvp_table[i+4].get_text().split()[-2]))
 		else:
-			log_loc.append("{} PoE:{} Goods".format(pvp_table[i+4].get_text().split()[-4], 
-				pvp_table[i+4].get_text().split()[-7].replace(',', '')))
+			log_loc.append("{} PoE:{} Goods".format(pvp_table[i+4].get_text().split()[-7].replace(',', ''), 
+				pvp_table[i+4].get_text().split()[-4].replace(',', '')))
 		pvp_stats[int(i/5)] = pvp_stats[int(i/5)] + log_loc
 
 	final = (timest, page_type, tuple(loc), crew_name, tuple(battle_stats), tuple(pvp_stats))
