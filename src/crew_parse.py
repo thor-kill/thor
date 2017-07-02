@@ -19,10 +19,7 @@
 #	((capt*), (sen_off*), (fle_off*), (off*), (pir*), (cab*))
 #Extend public statement in a form of a string
 #If at any point the fuction dicovers that a valid crew page was not provided it will return None
-
-#Optional / Not yet implamented
-#Dormant members
-#Battle stats
+#Side on Obsidian
 
 from bs4 import BeautifulSoup
 import time
@@ -46,7 +43,8 @@ def crew_parse(page, url):
 	stock = 0
 	members = [[], [], [], [], [], []]
 	ext_stm = ""
-	
+	side = ""	
+
 	soup = BeautifulSoup(page, "html.parser")
 	
 	loc[0] = url[url.index('/')+2:url.index('.')]
@@ -113,5 +111,12 @@ def crew_parse(page, url):
 		curr_t = curr_t.replace("\n\n", '\n').strip('\n').strip(' ')
 		ext_stm = curr_t
 	
-	final = (timest, page_type, tuple(loc), crew_name, flag, founded, fame, rank, pub_stm, rep, pol, booty, stock, members, ext_stm, dormant, battle)
+	if soup.find(alt="Shadow Fleet") != None:
+		side = "dark"
+	elif soup.find(alt="Defiant Armada") != None:
+		side = "light"
+	else:
+		side = None
+
+	final = (timest, page_type, tuple(loc), crew_name, flag, founded, fame, rank, pub_stm, rep, pol, booty, stock, members, ext_stm, dormant, battle, side)
 	return final

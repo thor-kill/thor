@@ -23,9 +23,7 @@
 #Pirates skills in a form of a tuple of tuples of strings
 #	((pirt_skills*), (carous_skills*), (craft_skills*))
 #If at any point the fuction dicovers that a valid crew page was not provided it will return None
-
-#Optional / Not yet implamented
-#Trophies
+#Side on Obsidian
 
 from bs4 import BeautifulSoup
 import time
@@ -48,6 +46,7 @@ def pirt_parse(page, url):
 	fam = []
 	heart = []
 	skills = [[], [], []]
+	side = ""
 	
 	soup = BeautifulSoup(page, "html.parser")
 	
@@ -173,5 +172,12 @@ def pirt_parse(page, url):
 	skills[0], skills[1], skills[2] = tuple(skills[0]), tuple(skills[1]), tuple(skills[2])
 	skills = tuple(skills)
 	
-	final = (timest, page_type, loc, pirt_name, crew, flag, govern, navy, rep, shoppes, stalls, houses, fam, heart, skills)
+	if soup.find(alt="Shadow Fleet") != None:
+		side = "dark"
+	elif soup.find(alt="Defiant Armada") != None:
+		side = "light"
+	else:
+		side = None
+
+	final = (timest, page_type, loc, pirt_name, crew, flag, govern, navy, rep, shoppes, stalls, houses, fam, heart, skills, side)
 	return final

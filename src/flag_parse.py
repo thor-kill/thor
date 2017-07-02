@@ -19,6 +19,7 @@
 #	((crew, id, (c, p, o, fo, so, cap))*)
 #The extended public statement in a form of a string
 #If at any point the fuction dicovers that a valid flag page was not provided it will return None
+#Side on Obsidian
 
 from bs4 import BeautifulSoup
 import time
@@ -37,6 +38,7 @@ def flag_parse(page, url):
 	royal = [[], [], []]
 	flg_crw = []
 	ext_stm = ""
+	side = ""
 	
 	soup = BeautifulSoup(page, "html.parser")
 	
@@ -136,5 +138,12 @@ def flag_parse(page, url):
 	else:
 		ext_stm = ""
 	
-	final = (timest, page_type, tuple(loc), flag_name, founded, fame, pub_stm, rep, relay, isld_ctrl, royal, flg_crw, ext_stm)
+	if soup.find(alt="Shadow Fleet") != None:
+		side = "dark"
+	elif soup.find(alt="Defiant Armada") != None:
+		side = "light"
+	else:
+		side = None
+
+	final = (timest, page_type, tuple(loc), flag_name, founded, fame, pub_stm, rep, relay, isld_ctrl, royal, flg_crw, ext_stm, side)
 	return final
