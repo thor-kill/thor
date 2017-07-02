@@ -3,12 +3,12 @@
 
 #And it will produce:
 #A timestamp of when the fuction was executed in Local Time in a form of struct_time
-#The type of data produced by the function in a form of a string "dorm"
+#The type of data produced by the function in a form of a string "batt"
 #The yoweb location of the page in a form of a tuple (ocean, id)
 #Crew name in a form of a string
 #Battle stats in a form of a tuple of tuples (((year,month,day),battles,wins,loss,pvp_w,pvp_l,(avg_min, avg_sec))*)
 #PVP stats in a form of a tuple of tuples 
-#	(((year,month,day,hour,minutes),attacking,(friedlies, enemies),
+#	(((year,month,day,hour,minutes),attacking,(friedlies, enemies), (friendly_crew, friendly_crew_id)
 #	(enemy_crew, enemy_crew_id),(friendly_ship_type,friendly_ship_name),(enemy_ship_type,enemy_ship_name),
 #	winner,victory_type))*)
 #	vitory type if only of the following: "disengaged", "sunk", "{} PoE:{} Goods"
@@ -91,6 +91,7 @@ def batt_parse(page, url):
 		if crew_name == pvp_table[i+1].a.get_text():
 			log_loc.append(True)
 			log_loc.append([pvp_table[i+1].get_text().split()[0], pvp_table[i+3].get_text().split()[0]])
+			log_loc.append([crew_name, loc[1]])
 			enemy_crew[0] = pvp_table[i+3].a.get_text()
 			enemy_crew[1] = pvp_table[i+3].a.get("href")[pvp_table[i+3].a.get("href").index('=')+1:
 				pvp_table[i+3].a.get("href").index('&')]
@@ -104,6 +105,7 @@ def batt_parse(page, url):
 		else:
 			log_loc.append(False)
 			log_loc.append([pvp_table[i+3].get_text().split()[0], pvp_table[i+1].get_text().split()[0]])
+			log_loc.append([crew_name, loc[1]])
 			enemy_crew[0] = pvp_table[i+1].a.get_text()
 			enemy_crew[1] = pvp_table[i+1].a.get("href")[pvp_table[i+1].a.get("href").index('=')+1:
 				pvp_table[i+1].a.get("href").index('&')]
