@@ -11,13 +11,15 @@ from .fame_parse import fame_parse
 from .dorm_parse import dorm_parse
 from .stat_parse import stat_parse
 from .batt_parse import batt_parse
+from .fact_parse import fact_parse
 
 def build(page_type, urls):
 	#Builds a yoweb URL
 	#Expects a tuple (ocean, type) and the island index, flag/crew id or a pirate name
 	types = {"isld":"island/info.wm?showAll=true", "flag":"flag/info.wm?flagid=", 
 		"crew":"crew/info.wm?crewid=", "pirt":"pirate.wm?target=", "trph":"trophy/?pirate=",
-		"dorm":"crew/dormant_members.wm?crewid=", "batt":"crew/battleinfo.wm?crewid="}
+		"dorm":"crew/dormant_members.wm?crewid=", "batt":"crew/battleinfo.wm?crewid=", 
+		"fact": "faction/info.wm"}
 	fame_page = {"ffam":"top_fame_112.html", "cfam":"top_fame_97.html", "pcon":"top_repute_PIRATE_CONQUEROR.html",
 		"pexp":"top_repute_PIRATE_EXPLORER.html", "ppat":"top_repute_PIRATE_PATRON.html",
 		"pmag":"top_repute_PIRATE_MAGNATE.html","ccon":"top_repute_CREW_CONQUEROR.html",
@@ -56,7 +58,7 @@ def simple_fetch(url, page_type):
 	reqs = requests.get(url)
 	html = reqs.text
 	func = {"pirt":pirt_parse, "crew":crew_parse, "flag":flag_parse, "isld":isld_parse, "trph":trph_parse,
-		"fame":fame_parse, "dorm":dorm_parse, "stat":stat_parse, "batt":batt_parse}
+		"fame":fame_parse, "dorm":dorm_parse, "stat":stat_parse, "batt":batt_parse, "fact":fact_parse}
 	return func[page_type](html, url)
 
 def fetch_all(page_type, ids, output):

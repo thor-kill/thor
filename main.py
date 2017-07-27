@@ -19,6 +19,9 @@ def main(args):
 		if page == "isld":
 			fetch((build((ocean, page), [""]))[0], page, output)
 			return True
+		elif page == "fact":
+			fetch((build((ocean, page), [""]))[0], page, output)
+			return True
 		elif page == "sall" and len(ids) < 1:
 			fetch_all((ocean, "stat"), [0,2,3,31,4,29,5,6,27,30,32,14,18,16,15,12,13,1,21,24,25,26] ,output)
 		elif page == "stat":
@@ -37,7 +40,7 @@ def main(args):
 		if ocean not in ("meri", "ceru", "emer", "obsi"):
 			print("Invalid Ocean")
 			return False
-		elif page not in ("isld", "flag", "crew", "pirt", "trph", "dorm", "batt"):
+		elif page not in ("isld", "flag", "crew", "pirt", "trph", "dorm", "batt", "fact"):
 			print("Invalid Page")
 			return False
 		elif isdir(output) == False:
