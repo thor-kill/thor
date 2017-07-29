@@ -115,8 +115,9 @@ def flag_parse(page, url):
 	for tr in range(len(curr_t)):
 		curr_t[tr] = str(curr_t[tr].find_all('td'))
 		curr_t[tr] = curr_t[tr].split("</td>")[:-1]
-	
+
 	for x in curr_t[:-1]:
+		if "href" not in x[0]: continue
 		i = x[0][x[0].index("id=")+3:x[0].index('&')]
 		n = x[0][x[0].index("$classic\">")+10:x[0].index('</a>')]
 		p = [0, 0, 0, 0, 0, 0]
